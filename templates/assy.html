@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="utf-8">
+
+<head>
+    <meta charset="utf-8">
+    <title>Assy - Manufacturing operation system</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../static/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link href="../static/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/main.css" rel="stylesheet">
+</head>
+
+<body style="font-family: Meiryo" ng-app="AppAssy" ng-cloak class="mos ng-cloak">
+<header class="header dark-bg">
+    <div class="toggle-nav">
+        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+    </div>
+    <div>
+        <img style="margin-top: 15px" src="../static/images/nidec.png" alt="Nidec - All for dreams"/>
+    </div>
+</header>
+<aside>
+    <div id="sidebar" class="nav-collapse ">
+        <ul class="sidebar-menu">
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_document_alt"></i>
+                    <span>Master Data</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub" style="display:block;">
+                    <li class="active"><a class="" href="go_assy?model={{ model }}">Assy</a></li>
+                    <li ><a  href="go_sttype?model={{ model }}">ST Type</a></li>
+                    <li><a class="" href="go_config?model={{ model }}">Configure</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<div id="main-content" class="mos-view" style="padding-top: 10%;padding-left: 5%;padding-right:5%;" align="center">
+    <h2 class="page-header">{{ model }} ASSY Info</h2>
+    <div class="panel panel-default">
+        <div id="Content" style="margin-left:10px;">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Process id</th>
+                    <th>Process Code</th>
+                    <th>Process Name</th>
+                    <th>Assy Text</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% verbatim %}
+                <tr ng-repeat="item in assy">
+                    <td>{{item.process_id}}</td>
+                    <td>{{item.process_cd}}</td>
+                    <td>{{item.process_text}}</td>
+                    <td style="white-space: pre">{{item.assy_text}}</td>
+                    <td><button type="button" class="btn btn-default" ng-click="update(item)">Update</button></td>
+                </tr>
+                {% endverbatim %}
+                </tbody>
+            </table>
+            <br>
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" align="center">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                </button>
+                <h4 class="modal-title">
+                    &nbsp;
+                </h4>
+            </div>
+            {% verbatim %}
+            <div class="modal-body">
+                <div align="center">
+                    <table border="0" cellspacing="0" style="width: 80%">
+                        <tr>
+                            <td><h4 align="left">Process Id</h4></td>
+                            <td align="left">{{item.process_id}}</td>
+                        </tr>
+                        <tr>
+                            <td><h4 align="left">process Code</h4></td>
+                            <td align="left">{{item.process_cd}}</td>
+                        </tr>
+                        <tr>
+                            <td><h4 align="left">Process Name</h4></td>
+                            <td align="left">{{item.process_text}}</td>
+                        </tr>
+                        <tr>
+                            <td><h4 align="left">Assy Text</h4></td>
+                            <td align="left">
+                                <input type="text" id="assy_text" maxlength="60" class="form-control" style="width: 200px"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" style="width: 75px" ng-click="commit(item)">OK</button>
+                <button type="button" class="btn btn-default" style="width: 75px" ng-click="cancel()">Cancel</button>
+            </div>
+            {% endverbatim %}
+        </div>
+    </div>
+</div>
+
+<script src="../static/lib/js/jquery-3.0.0.min.js"></script>
+<script src="../static/lib/bootstrap.js"></script>
+<script src="../static/lib/js/jquery.nicescroll.js" type="text/javascript"></script>
+<script src="../static/lib/js/scripts.js"></script>
+<script src="../static/lib/angular/angular.js" type="text/javascript"></script>
+<script src="../static/js/assy.js" type="text/javascript"></script>
+</body>
+</html>

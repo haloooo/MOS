@@ -1,0 +1,351 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="utf-8">
+
+<head>
+    <meta charset="utf-8">
+    <title>ST Type - Manufacturing operation system</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../static/css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="../static/css/style-responsive.css" rel="stylesheet" />
+    <link href="../static/css/xcharts.min.css" rel=" stylesheet">
+    <link href="../static/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/bootstrap-table-expandable.css">
+    <link rel="stylesheet" href="../static/css/jquery.timepicker.css">
+    <link href="../static/css/main.css" rel="stylesheet">
+    <link href="../static/css/toastr.css" rel="stylesheet">
+    <style>
+        th.center{
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body class="mos" style="font-family: Meiryo" >
+<header class="header dark-bg">
+    <div class="toggle-nav">
+        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+    </div>
+    <div>
+        <img style="margin-top: 15px" src="../static/images/nidec.png" alt="Nidec - All for dreams"/>
+    </div>
+</header>
+<!--header end-->
+
+<!--sidebar start-->
+<aside>
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu">
+            {#            <li class=""><a class="" href="go_ngreport?model={{ model }}"><i class="icon_house_alt"></i>Summary</a></li>#}
+            {#            <li class=""><a class="" href="go_manufacture?model={{ model }}"><i class="icon_tools"></i>Auto-IO</a></li>#}
+            {#            <li class=""><a class="" href="go_chart?model={{ model }}"><i class="icon_datareport"></i>Chart</a></li>#}
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_document_alt"></i>
+                    <span>Master Data</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub" style="display:block;">
+                    <li class=""><a class="" href="go_assy?model={{ model }}">Assy</a></li>
+                    <li class="active"><a  href="go_sttype?model={{ model }}">ST Type</a></li>
+                    <li><a class="" href="go_config?model={{ model }}">Configure</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<!--sidebar end-->
+<div id="main-content" class="mos-view" style="padding-top: 10%;padding-left:5%; padding-right: 5%;" align="center">
+    <div class="container-fluid">
+        <h2 class="page-header">{{ model }} Worktime Table</h2>
+        <div class="panel panel-default">
+            <div class="panel-body" align="left">
+                <div id="toolbar" class="btn-group">
+                    <nobr>
+						<span class="btn-group">
+							<button id="btNew" type="button" class="btn btn-default" style="width: 80px">
+								<span class="">Add</span>
+							</button>
+							<button id="btDel" type="button" class="btn btn-default" style="width: 80px">
+								<span class="">Delete</span>
+							</button>
+						</span>
+                    </nobr>
+                </div>
+                <button id="btCommit" type="button" class="btn btn-default" style="width: 80px">
+                    <span class="">Save</span>
+                </button>
+                <table id="worktime-grid" class="table table-hover table-expandable table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Worktime Name</th>
+                        <th>Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- container section start -->
+<!-- javascripts -->
+<script src="../static/lib/js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" src="../static/lib/js/jquery-ui-1.9.2.custom.min.js"></script>
+<!-- bootstrap -->
+<script src="../static/lib/js/bootstrap.min.js"></script>
+<!-- nice scroll -->
+<script src="../static/lib/js/jquery.scrollTo.min.js"></script>
+<script src="../static/lib/js/jquery.nicescroll.js" type="text/javascript"></script>
+<!-- jQuery full calendar -->
+<script src="../static/lib/js/fullcalendar.min.js"></script>
+<!-- Full Google Calendar - Calendar -->
+<script src="../static/assets/fullcalendar/fullcalendar/fullcalendar.js"></script>
+<!--script for this page only-->
+<script src="../static/lib/js/calendar-custom.js"></script>
+<script src="../static/lib/js/jquery.rateit.min.js"></script>
+<!-- custom select -->
+<script src="../static/lib/js/jquery.customSelect.min.js"></script>
+<!--custome script for all page-->
+<script src="../static/lib/js/scripts.js"></script>
+<script src="../static/lib/js/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="../static/lib/js/jquery-jvectormap-world-mill-en.js"></script>
+<script src="../static/lib/js/jquery.autosize.min.js"></script>
+<script src="../static/lib/js/jquery.placeholder.min.js"></script>
+<script src="../static/lib/js/gdp-data.js"></script>
+<script src="../static/lib/js/morris.min.js"></script>
+<script src="../static/lib/js/sparklines.js"></script>
+<script src="../static/lib/js/jquery.slimscroll.min.js"></script>
+<script src="../static/lib/js/bootstrap-table-expandable.js"></script>
+<script src="../static/js/jquery.timepicker.js"></script>
+<script src="../static/lib/toastr.js" type="text/javascript"></script>
+<script src="../static/lib/jquery.cookie.js"></script>
+<script src="../static/js/mos.js"></script>
+
+<script language="javascript">
+    toastr.options.positionClass = 'toast-top-center';
+    var model_name = window.location.href.split("?")[1].split("=")[1];
+    $(function () {
+        init_toolbar();
+        ShowWorktime();
+    });
+
+    function init_toolbar(){
+        $("#btNew").on("click", NewWorktime);
+        $("#btDel").on("click", DelWorktime);
+        $("#btCommit").on("click", CommitWorktime);
+    }
+
+    function NewWorktime(){
+        var name = prompt("Please input table name");
+        var spacecheck = /\s/ig;
+        name= name.replace(spacecheck, "");
+        if (name == ''){
+            toastr.info('Please input table name');
+            return;
+        }
+        var item = {worktime_name:name,
+            detail:[
+                {time_part:'All',delta_day:'0',time_val_s:'8:00',time_val_e:'8:00'},
+                {time_part:'D01',delta_day:'0',time_val_s:'8:00',time_val_e:'9:00'},
+                {time_part:'D02',delta_day:'0',time_val_s:'9:00',time_val_e:'10:00'},
+                {time_part:'D03',delta_day:'0',time_val_s:'10:00',time_val_e:'11:00'},
+                {time_part:'D04',delta_day:'0',time_val_s:'11:00',time_val_e:'12:00'},
+                {time_part:'D05',delta_day:'0',time_val_s:'12:00',time_val_e:'13:00'},
+                {time_part:'D06',delta_day:'0',time_val_s:'13:00',time_val_e:'14:00'},
+                {time_part:'D07',delta_day:'0',time_val_s:'14:00',time_val_e:'15:00'},
+                {time_part:'D08',delta_day:'0',time_val_s:'15:00',time_val_e:'16:00'},
+                {time_part:'D09',delta_day:'0',time_val_s:'16:00',time_val_e:'17:00'},
+                {time_part:'D10',delta_day:'0',time_val_s:'17:00',time_val_e:'18:00'},
+                {time_part:'D11',delta_day:'0',time_val_s:'18:00',time_val_e:'19:00'},
+                {time_part:'D12',delta_day:'0',time_val_s:'19:00',time_val_e:'20:00'},
+                {time_part:'Day',delta_day:'0',time_val_s:'8:00',time_val_e:'20:00'},
+                {time_part:'N01',delta_day:'1',time_val_s:'20:00',time_val_e:'21:00'},
+                {time_part:'N02',delta_day:'1',time_val_s:'21:00',time_val_e:'22:00'},
+                {time_part:'N03',delta_day:'1',time_val_s:'22:00',time_val_e:'23:00'},
+                {time_part:'N04',delta_day:'1',time_val_s:'23:00',time_val_e:'0:00'},
+                {time_part:'N05',delta_day:'1',time_val_s:'0:00',time_val_e:'1:00'},
+                {time_part:'N06',delta_day:'1',time_val_s:'1:00',time_val_e:'2:00'},
+                {time_part:'N07',delta_day:'1',time_val_s:'2:00',time_val_e:'3:00'},
+                {time_part:'N08',delta_day:'1',time_val_s:'3:00',time_val_e:'4:00'},
+                {time_part:'N09',delta_day:'1',time_val_s:'4:00',time_val_e:'5:00'},
+                {time_part:'N10',delta_day:'1',time_val_s:'5:00',time_val_e:'6:00'},
+                {time_part:'N11',delta_day:'1',time_val_s:'6:00',time_val_e:'7:00'},
+                {time_part:'N12',delta_day:'1',time_val_s:'7:00',time_val_e:'8:00'},
+                {time_part:'Night',delta_day:'1',time_val_s:'20:00',time_val_e:'8:00'}
+            ]
+        };
+        //item.serial = dummy.Datas.length+1;
+        //dummy.Datas.push(item);
+        $.ajax({
+            type: "get",
+            url: "add_worktime?model=" + model_name + "&worktime=" + JSON.stringify(item),
+            dataType: 'json',
+            success: function (result) {
+                //console.log(result);
+                if (result.status == 'success') {
+                    $("#worktime-grid tbody").empty();
+                    ShowWorktime();
+                } else {
+                    if (result.status=='fail') {
+                        alert(result.message);
+                    }
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //错误时候输出
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function DelWorktime(){
+        if ($("#worktime-grid .selected").length == 0){
+            return;
+        }
+        var id = $("#worktime-grid .selected").attr("serial");
+        $.ajax({
+            type: "get",
+            url: "del_worktime?model=" + model_name + "&worktime_name=" +id,
+            dataType: 'json',
+            success: function (result) {
+                //console.log(result);
+                if (result.status == 'success') {
+                    $("#worktime-grid tbody").empty();
+                    ShowWorktime();
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //错误时候输出
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function ShowWorktime() {
+        $.ajax({
+            type: "get",
+            url: "get_worktime?model=" + model_name,
+            dataType: 'json',
+            success: function (result) {
+                //console.log(result);
+
+                var html = [];
+                for(var i = 0; i < result.data.length; i++){
+                    var wt = result.data[i];
+                    html.push("<tr serial='" + wt.worktime_name + "'>");
+                    html.push("<td>" + (i+1).toString() + "</td>");
+                    html.push("<td>" + wt.worktime_name + "</td>");
+                    html.push("</tr>");
+                    html.push("<tr>");
+                    html.push("<td colspan='2'>");
+                    html.push("<div style='padding:20px;'><table>");
+                    html.push("<thead><tr>");
+                    html.push("<th width='200px'>Time Part</th>");
+                    html.push("<th width='100px'>Day/Night</th>");
+                    html.push("<th width='160px' class='center'>Start Time</th>");
+                    html.push("<th width='160px' class='center'>End Time</th>");
+                    html.push("</tr></thead></tbody>");
+                    for(var j = 0; j < wt.detail.length; j++){
+                        html.push("<tr class='data' work_name='"+wt.worktime_name+"' time_part='"+wt.detail[j].time_part+"' Day_Night='"+wt.detail[j].delta_day+"' Start_Time='"+wt.detail[j].time_val_s+"' End_Time='"+wt.detail[j].time_val_e+"'> ");
+                        html.push("<td class='editor timepart-edit'><span class='cell-value' time_part="+wt.detail[j].time_part+">" + wt.detail[j].time_part + "</span></td>");
+                        if ((wt.detail[j].time_part).substr(0,1) == 'D' || (wt.detail[j].time_part).substr(0,1) == 'A')
+                        {
+                            html.push("<td class='editor day-night'><span class='cell-value' Day_Night='Day'>Day</span></td>");
+                        }
+                        else
+                        {
+                            html.push("<td class='editor day-night'><span class='cell-value' Day_Night='Night'>Night</span></td>");
+                        }
+                        html.push("<td class='editor time-edit' align='center'><span class='cell-value' Start_Time="+wt.detail[j].time_val_s+">" + wt.detail[j].time_val_s + "</span></td>");
+                        html.push("<td class='editor time-edit' align='center'><span class='cell-value' End_Time="+wt.detail[j].time_val_e+">" + wt.detail[j].time_val_e + "</span></td>");
+                        html.push("</tr>");
+                    }
+                    html.push("</tbody></table></div>");
+                    html.push("</td>");
+                    html.push("</tr>");
+                }
+                $("#worktime-grid tbody").append(html.join(''));
+                resetTable();
+                setTableEditor();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //错误时候输出
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function CommitWorktime() {
+        var csrf = $.cookie('csrftoken');
+        var arr = [];
+        var jsonstr="[]";
+        var jsonarray = eval('('+jsonstr+')');
+        var url = "update_sttype?model_name=" + model_name + "&csrfmiddlewaretoken=" + csrf;
+        var flag = true;
+        $(".data").each(function () {
+            var line = $(this).text();
+            var time_part = $(this).attr('time_part');
+            var Day_Night = $(this).attr('Day_Night');
+            var Start_Time = $(this).attr('Start_Time');
+            var End_Time = $(this).attr('End_Time');
+            var work_name = $(this).attr('work_name');
+            if(Day_Night==0)
+            {
+                Day_Night = 'Day'
+            }else
+            {
+                Day_Night = 'Night'
+            }
+            //console.log(time_part,Day_Night,Start_Time,End_Time)
+            $(this).children("td").each(function ()
+            {
+                arr.push($(this).text())
+            });
+            jsonarray.push({'work_name':work_name,'time_part':arr[0],'Day_Night':arr[1],'Start_Time':arr[2],'End_Time':arr[3]});
+            if(time_part != 'All' && time_part != 'Day' && time_part != 'Night')
+            {
+                if(time_part != arr[0] || Day_Night != arr[1] || Start_Time != arr[2] || End_Time != arr[3])
+                {
+                    if(Date.parse("2018-3-13 " + arr[2]) >= Date.parse("2018-3-13 " + arr[3]))
+                    {
+                        alert("Please choose the correct time period");
+                        flag = false;
+                        return false;
+                    }
+                }
+            }
+            arr=[]
+        });
+        if(flag)
+        {
+            $('#btCommit').attr('disabled',true);
+            $.ajax({
+                type: "post",
+                url: url,
+                data: JSON.stringify(jsonarray),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function (result) {
+                    alert('update successful');
+                    $('#btCommit').attr('disabled',false);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('update failed')
+                    //错误时候输出
+                    console.log(errorThrown);
+                    $('#btCommit').attr('disabled',false);
+                }
+            });
+        }
+    }
+</script>
+
+</body>
+</html>

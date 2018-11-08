@@ -1,0 +1,102 @@
+﻿Version 0.0.10 2018/3/8
+Support Function: 
+1.Overview of the whole frame
+2.Support only Auto-IO page.
+
+Version 0.1.0  2018/3/16
+Support Function:
+1. Auto-IO page.
+2. Summary page.
+Next version will support:
+1.Chat page.
+2.Seperate 1st and 2nd of Auto-IO.
+
+
+Version 0.1.2  2018/3/26
+Modify:
+1,Assy sorted by process_id
+2,Plan upload changed into two tables.
+3,Add the date select on summary page.
+4,Add Day/Ngiht/All select value on summary page.
+5,Sepearte the master data from the whole system.
+6,Add the metion of search result.
+7,Add the link of summary and line/assy page when click the assy.
+Next version will support:
+1.Add time_part to Summary page;
+2.Change the chart page.
+
+Version 0.1.3  2018/4/2
+1.Add time_part to Summary page.
+2.Change the chart page.
+
+Version 0.1.4  2018/4/16
+1.Add mode select of auto_io page.
+2,Chage the formulate of all line on line/assy.
+3,Seprate the upload plan an summary_offset.
+4,Chaged the metion way of search result.
+5,Add the history page.
+
+Version 0.1.5  2018/4/23
+Modify:
+1,Modify the font color of Trend Page.
+2,Add hyperlink of Trend Page.
+3,Fixed the assy name when scroll the scroll bar on Trend page.
+4,Move the color range from source code to config file.
+Add:
+1,Add defect page
+ 
+
+Version 0.1.6 2018/4/28
+Modify:
+1,Change the range of right ordinate on trend page from auto adapt to fixed value(0-100%).
+2,Move the "All other" to right position.
+Add:
+1,Add the yield bridge chart on trend page.
+
+Version 0.1.7 2018/5/11
+Modify:
+1,Set the default date(The day before the current date) in Date control.
+2,Check the database connect in all page.
+
+Version 0.1.8 2018/5/30
+Modify:
+・SN Trace：画面が用意されたことは確認出来ましたが実際の検索はいつ出来そうか。
+・Config：計算式の修正とFPYなどの表示名変更
+・Trend：Lineを選択して表示するのはいつできるか
+
+
+Version 2.0.0 2018/6/8
+1,Add the export button of Defect and Trend page.
+2,Import the performace of chart page
+3,Add three line of Tracert page
+4,Add the holdfor function
+5,Integrate hoop and module
+
+
+Version 2.0.1 2018/6/14
+1,Add Serial mode for Defect Page.
+2,Input num does not contain IPQC of SN TRACERT.
+3,Modify the formulate of WIP(Input(Previous) - Input(Next)=>OK(Previous) - Input(Next)) 
+4,Add the export function for process_cd of SN TRACERT.
+5,Dropdown box of config rely on the choose date.
+6,Add Individ mode for SN TRACERT.
+
+Version 2.1.0 2018/8/3
+1,Add the Defect trend
+2,Modify the left menu
+
+Version 2.1.1 2018/8/10
+1,Modify the table dislocation of progress page
+2,Compatible python2 and python3 about the type of unicode string
+
+Version 2.1.2 2018/8/23
+1,Fixed the bug of chart when click the chart many times
+2,Changed the "Data Type" of "Defect Trend" 
+
+Version 2.1.3 2018/8/24
+1,The display of chart is optimized.
+
+Version 2.1.4 2018/9/4
+1,The display of chart is optimized.
+2,Add two tabs of summary page.
+3,Add one tab of process page.
